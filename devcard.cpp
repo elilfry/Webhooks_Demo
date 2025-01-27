@@ -4,7 +4,7 @@ namespace ariel {
 
     // Constructor for Devcard
     Devcard::Devcard(const string &type) : type(type) {}
-    Devcard::~Devcard() {}
+    Devcard::~Devcard() {} //a
 
     // Constructor for Knight card
     Knight::Knight() : Devcard("Knight") {}
