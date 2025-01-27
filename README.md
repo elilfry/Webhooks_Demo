@@ -5,7 +5,7 @@
 A guide for setting up a webhook listener that clones repositories on pull request events.
 
 ## Prerequisites
-- Git installed
+- Git installed.
 - GitHub account with repository access
 - ngrok for local webhook testing
 
