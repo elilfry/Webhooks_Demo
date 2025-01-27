@@ -15,6 +15,8 @@ A guide for setting up a webhook listener that clones repositories on pull reque
 First, set up your Python environment using Conda:
 
 # Create new conda environment
+```bash
+# Create new conda environment
 conda create -n webhook-env python=3.9
 
 # Activate the environment
@@ -22,13 +24,20 @@ conda activate webhook-env
 
 # Install Flask
 conda install flask
+```
+
 
 ### 2. ngrok Setup
 1. Download ngrok from [ngrok.com](https://ngrok.com)
 2. Extract the ngrok executable
 3. Open a new terminal and run:
+```bash
 
 ngrok http 5000
+```
+4. Copy the generated HTTPS URL (e.g., https://1234-your-ngrok.ngrok.io)
+   You'll need this URL for the GitHub webhook configuration
+
 
 ### 3. GitHub Webhook Configuration
 1. Go to your GitHub repository
@@ -45,7 +54,9 @@ ngrok http 5000
 2. Set your desired LOCAL_REPO_PATH in the code
 3. Start the Flask server:
 
+```bash
 python webhook_listener.py
+```
 
 ### 5. Testing the Setup
 1. Create a new pull request in your repository.
