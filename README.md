@@ -48,6 +48,7 @@ ngrok http 5000
 python webhook_listener.py
 
 ### 5. Testing the Setup
-1. Create a new pull request in your repository
+1. Create a new pull request in your repository.
 2. Watch your webhook listener console
 3. Verify the repository cloning in your specified LOCAL_REPO_PATH
+
