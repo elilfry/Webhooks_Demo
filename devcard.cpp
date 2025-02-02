@@ -6,7 +6,7 @@ namespace ariel {
     Devcard::Devcard(const string &type) : type(type) {}
     Devcard::~Devcard() {}
 
-    // Constructor for Knight card
+    // Constructor for Knight card1
     Knight::Knight() : Devcard("Knight") {}
     void Knight::playCard(Player &player, Catan &catan) {
         player.addKnights(1);
