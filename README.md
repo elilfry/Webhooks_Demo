@@ -1,3 +1,147 @@
+
+
+
+# Docker Setup Guide for FastAPI and MongoDB
+
+## 📌 Introduction
+This guide explains how to set up Docker containers for FastAPI and MongoDB, verify that the services are running correctly, and troubleshoot connectivity issues.
+
+---
+
+## 🔹 1. Creating a Docker Network
+Before running the containers, create a private Docker network for communication:
+```sh
+docker network create mynetwork
+```
+
+---
+
+## 🔹 2. Running the MongoDB Container
+To start the MongoDB container:
+```sh
+docker run -d --name mongodb --network mynetwork -p 27017:27017 -v "C:/Users/elifr/Studies/tope ai/dis_source_code/Mongo_Db_1:/data/db" mongo:latest
+```
+**Explanation:**
+- `-d` → Run in the background.
+- `--name mongodb` → Assigns a name to the container.
+- `--network mynetwork` → Connects to the created network.
+- `-p 27017:27017` → Maps MongoDB port to the local machine.
+- `-v "C:/Users/elifr/.../Mongo_Db_1:/data/db"` → Mounts the local database directory.
+
+Check if the container is running:
+```sh
+docker ps
+```
+
+---
+
+## 🔹 3. Restoring Data in MongoDB
+If you need to restore a database backup:
+```sh
+docker exec -it mongodb mongorestore --db topeai /data/db/topeai
+```
+
+Verify the database inside the MongoDB shell:
+```sh
+docker exec -it mongodb mongosh
+```
+Once inside, check:
+```sh
+show dbs
+use topeai
+show collections
+```
+
+---
+
+## 🔹 4. Running the FastAPI Container
+Start the FastAPI container:
+```sh
+docker run -d --name fastapi-app --network mynetwork -p 5000:5000 fastapi-app
+```
+**Explanation:**
+- `-d` → Runs in the background.
+- `--name fastapi-app` → Assigns a name to the container.
+- `--network mynetwork` → Ensures connectivity with MongoDB.
+- `-p 5000:5000` → Maps FastAPI port to the local machine.
+
+Check if the API is running:
+```sh
+docker ps
+```
+
+View API logs:
+```sh
+docker logs -f fastapi-app
+```
+
+---
+
+## 🔹 5. Verifying Connection Between FastAPI and MongoDB
+Enter the FastAPI container:
+```sh
+docker exec -it fastapi-app sh
+```
+Then, install `ping` and test MongoDB connectivity:
+```sh
+apt update && apt install -y iputils-ping
+ping mongodb
+```
+
+If you see a list of databases, the connection is successful! ✅
+
+---
+
+## 🔹 6. Stopping and Removing Containers
+To **stop** the running containers:
+```sh
+docker stop fastapi-app mongodb
+```
+
+To **remove** the containers:
+```sh
+docker rm fastapi-app mongodb
+```
+
+---
+
+## 🔹 7. Common Issues & Fixes
+
+### ❌ MongoDB Data Not Loaded
+- Ensure the data directory path is correct.
+- Check permissions for the `Mongo_Db_1` directory.
+
+### ❌ FastAPI Can't Connect to MongoDB
+- Update the connection string to:  
+  ```
+  mongodb://mongodb:27017/
+  ```
+  instead of `localhost`.
+
+### ❌ API Is Not Accessible
+- Make sure FastAPI listens on `0.0.0.0:5000` (not `127.0.0.1`).
+
+For additional debugging:
+```sh
+docker logs fastapi-app
+```
+
+---
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Webhooks_Demo
 23456789012
 # GitHub Webhook Listener Setup Guide
